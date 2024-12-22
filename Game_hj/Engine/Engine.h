@@ -1,4 +1,10 @@
 #pragma once
+#include "Device.h"
+#include "CommandQueue.h"
+#include "SwapChain.h"
+#include "RootSignature.h"
+#include "Mesh.h"
+#include "Shader.h"
 
 
 class Engine
@@ -7,6 +13,11 @@ public:
 
 	void Init(const WindowInfo& info);
 	void Render();
+public:
+	shared_ptr<Device> GetDevice() { return _device; }
+	shared_ptr<CommandQueue> GetCmdQueue() { return _cmdQueue; }
+	shared_ptr<SwapChain> GetSwapChain() { return _swapChain; }
+	shared_ptr<RootSignature> GetRootSignature() { return _rootSignature; }
 
 public:
 	void RenderBegin();
@@ -20,10 +31,29 @@ private:
 	D3D12_VIEWPORT	_viewport = {};
 	D3D12_RECT		_scissorRect = {};
 
-	shared_ptr<class Device> _device;
-	shared_ptr<class CommandQueue> _cmdQueue;
-	shared_ptr<class SwapChain> _swapChain;
-	shared_ptr<class DescriptorHeap> _descHeap;
+	shared_ptr<Device> _device;
+	shared_ptr<CommandQueue> _cmdQueue;
+	shared_ptr<SwapChain> _swapChain;
+	shared_ptr<RootSignature> _rootSignature;
 };
 
+// Engine
+// DirectX를 공부하기 전에 클라이언트단과 서버단으로 나누어서 코드를 관리할 것이고, 그 중 서버단에 포함되는 엔진에 대해 먼저 알아보자.
+// 우선 DirectX12는 11과 다르게 초기화 하는 부분을 직접 설정해주어야한다.그 부분을 천천히 진행해보자.
+
+// 우선 엔진에는 프로그램의 주요 정보들이 포함된다.
+// 각 사용자의 환경에 맞춰 그려질 화면 크기와 관련된 정보나 서로 간의 통신을 위한 스마트 포인터, 
+// 프로그램이 새로 실행될 때마다 초기화 정보 등이 대표적이다.
+
+// 헤더 파일에는 대부분 함수의 선언부가 멤버 함수로 포함되어 있다. 구현부는 cpp 파일에 작성해 줄 것이다.
+
+// 프로그램이 실행될 때마다 초기화해주는 Init(), 매 프레임마다 실행될 Update(), 
+// 그리고 화면에 렌더링해주는 함수들이 포함되어있다.
+// 또, 현재 프로그램을 실행한 컴퓨터의 정보를 받아 창을 자유롭게 조절할 수 있는 함수를 추가해주었다.
+// DirectX에는 많은 함수들이 등장하는데 일일이 외울 필요는 없고 대략적으로 어떠한 기능을 가지는지 정도만 알아두고 넘어갈 것이다. 
+// 업데이트 함수에는 렌더 함수 하나만 존재한다는 것을 알 수 있다.
+// DirectX를 공부하면서 나무를 보려하지말고 숲을 보면서 거시적인 관점으로 공부
+
+// DirectX라는것 자체는 GPU한테 외주를 맡기기 위한 우리의 피나는 노력.
+// 초기화하는 부분은 중요하지않고 렌더링과 관련된 고급 기법들을 익히는게 중요하다.
 

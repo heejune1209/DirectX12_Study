@@ -8,13 +8,14 @@ class CommandQueue
 public:
 	~CommandQueue();
 
-	void Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain, shared_ptr<DescriptorHeap> descHeap);
+	void Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain);
 	void WaitSync();
 
 	void RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect);
 	void RenderEnd();
 
 	ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
+	ComPtr<ID3D12GraphicsCommandList> GetCmdList() { return	_cmdList; }
 
 private:
 	// CommandQueue : DX12에 등장
@@ -31,6 +32,10 @@ private:
 	HANDLE								_fenceEvent = INVALID_HANDLE_VALUE;
 
 	shared_ptr<SwapChain>		_swapChain;
-	shared_ptr<DescriptorHeap>	_descHeap;
 };
 
+// Command Queue
+// GPU에게 건네줄 실행 목록을 작성해주는 함수이다. 명령어가 호출되었을 때 그 즉시 실행해야 할 명령어도 있지만 
+// 나중에 실행해야 할 명령어도 존재할 것이다. 또한 실행해야 할 명령어들이 너무 많으면 CPU가 놀고 반대로 명령어들이 너무 없으면 GPU가 놀게 될 것이다.
+// 이러한 일의 비율을 맞춰주기 위해 커맨드 큐를 사용한다.이러한 과정에서 CPU와 GPU의 실행 차이가 생기는데, 
+// 둘의 동기화를 위해 Fence 라는 간단한 도구를 사용한다.

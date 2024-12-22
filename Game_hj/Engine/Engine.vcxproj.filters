@@ -14,15 +14,15 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{0e5ce74f-a5a8-4dc2-a0aa-b46fa6966ac8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{516b3af7-48e8-4ed2-a0a2-7c7539970f17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="d3dx12.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="CommandQueue.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="DescriptorHeap.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Device.h">
@@ -40,12 +40,18 @@
     <ClInclude Include="SwapChain.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="RootSignature.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandQueue.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="DescriptorHeap.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Device.cpp">
@@ -63,5 +69,19 @@
     <ClCompile Include="SwapChain.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="RootSignature.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\resources\shader\default.hlsli">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

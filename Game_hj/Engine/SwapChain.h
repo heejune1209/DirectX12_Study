@@ -25,19 +25,30 @@
 class SwapChain
 {
 public:
-	void Init(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
+	void Init(const WindowInfo& info, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
 	void Present();
 	void SwapIndex();
 
 	ComPtr<IDXGISwapChain> GetSwapChain() { return _swapChain; }
-	ComPtr<ID3D12Resource> GetRenderTarget(int32 index) { return _renderTargets[index]; }
+	ComPtr<ID3D12Resource> GetRenderTarget(int32 index) { return _rtvBuffer[index]; }
 
-	uint32 GetCurrentBackBufferIndex() { return _backBufferIndex; }
-	ComPtr<ID3D12Resource> GetCurrentBackBufferResource() { return _renderTargets[_backBufferIndex]; }
+	ComPtr<ID3D12Resource> GetBackRTVBuffer() { return _rtvBuffer[_backBufferIndex]; }
+	D3D12_CPU_DESCRIPTOR_HANDLE GetBackRTV() { return _rtvHandle[_backBufferIndex]; }
+private:
+	void CreateSwapChain(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
+	void CreateRTV(ComPtr<ID3D12Device> device);
 
 private:
 	ComPtr<IDXGISwapChain>	_swapChain;
-	ComPtr<ID3D12Resource>	_renderTargets[SWAP_CHAIN_BUFFER_COUNT];
+	ComPtr<ID3D12Resource>	_rtvBuffer[SWAP_CHAIN_BUFFER_COUNT];
+	ComPtr<ID3D12DescriptorHeap>	_rtvHeap;
+	D3D12_CPU_DESCRIPTOR_HANDLE		_rtvHandle[SWAP_CHAIN_BUFFER_COUNT];
+
 	uint32					_backBufferIndex = 0;
 };
 
+// Swap Chain
+// Device 함수에서 내가 동작시킬 장치의 정보를 담았다면, 그 장치에 전달할 내용을 도와주는 함수이다.
+// 현재 게임 세상에 있는 상황을 묘사하고, 어떤 공식으로 어떻게 계산할지 정해줘야한다.
+// 그런 다음 GPU가 계산을 완료하면 결과물이 나오게 되는데, 이 결과물을 어디에 받을지 정해주는 기능을 한다.
+// 결과물은 보통 버퍼(Buffer)를 통해 받게 되는데 두 개 이상의 버퍼를 이용해 결과물을 받고, 다음 결과물을 다른 버퍼에 그리는 동작을 반복 수행한다.
