@@ -1,11 +1,5 @@
 #pragma once
 
-// 얘를 만드는 이유는 나중에 클라이언트 쪽에서 자주 활용이 되는 애들을 그냥 한곳에 묶어가지고 관리를 하기 위해서 이렇게 만들어줬다
-
-// 각종 include
-// 각종 lib
-// 각종 typedef 등등을 여기에 넣어준다고 보면된다
-
 // 각종 include
 #include <windows.h>
 #include <tchar.h>
@@ -49,10 +43,22 @@ using Vec3 = XMFLOAT3;
 using Vec4 = XMFLOAT4;
 using Matrix = XMMATRIX;
 
+enum class CBV_REGISTER
+{
+	b0,
+	b1,
+	b2,
+	b3,
+	b4,
+
+	END
+};
 
 enum
 {
-	SWAP_CHAIN_BUFFER_COUNT = 2
+	SWAP_CHAIN_BUFFER_COUNT = 2,
+	CBV_REGISTER_COUNT = CBV_REGISTER::END,
+	REGISTER_COUNT = CBV_REGISTER::END,
 };
 
 struct WindowInfo
@@ -68,6 +74,7 @@ struct Vertex
 	Vec3 pos;
 	Vec4 color;
 };
+
 struct Transform
 {
 	Vec4 offset;
@@ -78,4 +85,3 @@ struct Transform
 #define ROOT_SIGNATURE	GEngine->GetRootSignature()->GetSignature()
 
 extern unique_ptr<class Engine> GEngine;
-
