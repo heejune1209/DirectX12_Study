@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CommandQueue.h"
 #include "SwapChain.h"
+#include "Engine.h"
 
 CommandQueue::~CommandQueue()
 {
@@ -68,6 +69,9 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 		D3D12_RESOURCE_STATE_PRESENT, // 화면 출력
 		D3D12_RESOURCE_STATE_RENDER_TARGET); // 외주 결과물
 
+	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
+	GEngine->GetCB()->Clear();
+
 	_cmdList->ResourceBarrier(1, &barrier);
 
 	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.
@@ -90,7 +94,21 @@ void CommandQueue::RenderEnd()
 	_cmdList->ResourceBarrier(1, &barrier);
 	_cmdList->Close();
 
+	// 어떤 데이터를 다른 곳에다가 복사하는 부분은
+	// 디바이스를 통해가지고 뭔가가 이루어질때는 지금 당장 뭔가가 이루어지고있다고 생각.
+	// 하지만 커맨드 리스트에선 반대다.
 	// 커맨드 리스트 수행
+	// 작업하는것을 예약만 하는거고 일감 자체를 나중에 execute할때 한번에 일어난다
+
+	// 실행 시점에서 차이가 있다(중요)
+
+	// 근데 커맨드큐를 이용하면 해야하는 일들이 나중에 일어난다는 문제가 있다.
+	// 1단계와 2단계 실행 시점이 다르기 때문에 문제가 발생한다
+	// 이것은 constant buffer뿐만 아니라 이제 command List를 이용해서 작업을 할때 항상 조심해야한다
+	// 나의 요청사항이 나중에 밀려서 실행이 될수 있기 때문.
+
+	// 생각할수 있는 해결책은, 버퍼의 개수를 여러개로 늘려서 커맨드 큐를 사용한다.
+
 	ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
 	_cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
 

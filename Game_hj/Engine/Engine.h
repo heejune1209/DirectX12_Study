@@ -5,6 +5,7 @@
 #include "RootSignature.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "ConstantBuffer.h"
 
 
 class Engine
@@ -18,7 +19,7 @@ public:
 	shared_ptr<CommandQueue> GetCmdQueue() { return _cmdQueue; }
 	shared_ptr<SwapChain> GetSwapChain() { return _swapChain; }
 	shared_ptr<RootSignature> GetRootSignature() { return _rootSignature; }
-
+	shared_ptr<ConstantBuffer> GetCB() { return _cb; }
 public:
 	void RenderBegin();
 	void RenderEnd();
@@ -35,7 +36,15 @@ private:
 	shared_ptr<CommandQueue> _cmdQueue;
 	shared_ptr<SwapChain> _swapChain;
 	shared_ptr<RootSignature> _rootSignature;
+	shared_ptr<ConstantBuffer> _cb;
+
 };
+
+// Client와 Server
+// 보통의 게임 개발에는 클라이언트(Client)와 서버(Server)로 나뉜다.
+// 클라이언트는 네트워크로 연결된 서버로부터 정보를 제공받는 컴퓨터라는 뜻이며 그러한 컴퓨터를 사용하는 사용자까지 포괄하여 의미를 담고 있다.
+// 서버는 사용자에게 보이지 않는 곳에 존재하며 클라이언트에게 네트워크를 통해 정보나 서비스를 제공하는 컴퓨터 시스템으로 컴퓨터 프로그램 또는 장치를 의미한다.
+// 엔진(Engine)은 서버단을 뜻한다. 이 두 프로젝트를 따로 분리하여 관리하면서 서로간의 연동을 통해 하나의 솔루션 파일을 만들어 볼 것이다.
 
 // Engine
 // DirectX를 공부하기 전에 클라이언트단과 서버단으로 나누어서 코드를 관리할 것이고, 그 중 서버단에 포함되는 엔진에 대해 먼저 알아보자.
@@ -56,4 +65,4 @@ private:
 
 // DirectX라는것 자체는 GPU한테 외주를 맡기기 위한 우리의 피나는 노력.
 // 초기화하는 부분은 중요하지않고 렌더링과 관련된 고급 기법들을 익히는게 중요하다.
-
+// 프로그램 전체의 흐름을 익히는 방식으로 공부를 진행할 예정이다. 
