@@ -9,6 +9,7 @@
 #include "ConstantBuffer.h"
 #include "TableDescriptorHeap.h"
 #include "Texture.h"
+#include "DepthStencilBuffer.h"
 
 class Engine
 {
@@ -24,7 +25,7 @@ public:
 	shared_ptr<RootSignature> GetRootSignature() { return _rootSignature; }
 	shared_ptr<ConstantBuffer> GetCB() { return _cb; }
 	shared_ptr<TableDescriptorHeap> GetTableDescHeap() { return _tableDescHeap; }
-
+	shared_ptr<DepthStencilBuffer> GetDepthStencilBuffer() { return _depthStencilBuffer; }
 public:
 	void RenderBegin();
 	void RenderEnd();
@@ -43,6 +44,7 @@ private:
 	shared_ptr<RootSignature> _rootSignature;
 	shared_ptr<ConstantBuffer> _cb;
 	shared_ptr<TableDescriptorHeap> _tableDescHeap;
+	shared_ptr<DepthStencilBuffer> _depthStencilBuffer;
 };
 
 // Client와 Server
@@ -71,3 +73,4 @@ private:
 // DirectX라는것 자체는 GPU한테 외주를 맡기기 위한 우리의 피나는 노력.
 // 초기화하는 부분은 중요하지않고 렌더링과 관련된 고급 기법들을 익히는게 중요하다.
 // 프로그램 전체의 흐름을 익히는 방식으로 공부를 진행할 예정이다. 
+// 핵심 기능 실습에만 중점

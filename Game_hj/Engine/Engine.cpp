@@ -16,6 +16,7 @@ void Engine::Init(const WindowInfo& info)
 	_rootSignature = make_shared<RootSignature>();
 	_cb = make_shared<ConstantBuffer>();
 	_tableDescHeap = make_shared<TableDescriptorHeap>();
+	_depthStencilBuffer = make_shared<DepthStencilBuffer>();
 
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain);
@@ -23,6 +24,9 @@ void Engine::Init(const WindowInfo& info)
 	_rootSignature->Init();
 	_cb->Init(sizeof(Transform), 256);
 	_tableDescHeap->Init(256);
+	_depthStencilBuffer->Init(_window);
+
+	ResizeWindow(info.width, info.height);
 }
 
 void Engine::Render()
@@ -52,4 +56,6 @@ void Engine::ResizeWindow(int32 width, int32 height)
 	RECT rect = { 0, 0, width, height };
 	::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 	::SetWindowPos(_window.hwnd, 0, 100, 100, width, height, 0);
+
+	_depthStencilBuffer->Init(_window);
 }

@@ -69,9 +69,10 @@ void Game::Update()
 
 	shader->Update();
 
+	
 	{
 		Transform t;
-		t.offset = Vec4(0.f, 0.f, 0.f, 0.f);
+		t.offset = Vec4(0.25f, 0.25f, 0.2f, 0.f);
 		mesh->SetTransform(t);
 
 		mesh->SetTexture(texture);
@@ -80,13 +81,14 @@ void Game::Update()
 	}
 
 	// 하나만 그리기 위해서 주석
-	/*{
+	{
 		Transform t;
-		t.offset = Vec4(0.f, 0.75f, 0.f, 0.f);
+		t.offset = Vec4(0.f, 0.f, 0.3f, 0.f);
 		mesh->SetTransform(t);
 
 		mesh->Render();
-	}*/
-
+	}
+	// 주석을 풀면 이미지가 두개가 나타나서 가려지는 부분이 생긴다
+    // 넣어주자마자 투영좌표로 세팅
 	GEngine->RenderEnd();
 }
