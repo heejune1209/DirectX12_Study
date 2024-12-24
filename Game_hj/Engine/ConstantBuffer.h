@@ -20,7 +20,7 @@ private:
 
 private:
 	ComPtr<ID3D12Resource>	_cbvBuffer;
-	BYTE* _mappedBuffer = nullptr;
+	BYTE*					_mappedBuffer = nullptr;
 	uint32					_elementSize = 0;
 	uint32					_elementCount = 0;
 
@@ -29,10 +29,7 @@ private:
 	uint32								_handleIncrementSize = 0;
 
 	uint32					_currentIndex = 0;
-
-
 };
-
 // Constant Buffer
 // 일반적인 상수를 저장하기 위해 사용하는 버퍼(Buffer)이다.
 // 정점 버퍼와 비슷하지만 상수를 저장하기 때문에 훨씬 더 범용적으로 사용할 수 있다.
@@ -42,4 +39,3 @@ private:
 // 즉시 실행되는 부분과 나중에 실행 되는 부분이 구분이 되기 때문에 이런 식으로
 // 버퍼를 여러개를 만들어서 관리를 하고있는 컨셉 자체가 굉장히 중요하다
 // 앞으로도 계속 등장하니까 주의깊게 살펴보자
-

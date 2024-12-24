@@ -1,4 +1,4 @@
-#include "pch.h"
+Ôªø#include "pch.h"
 #include "Mesh.h"
 #include "Engine.h"
 
@@ -15,40 +15,42 @@ void Mesh::Render()
 	CMD_LIST->IASetIndexBuffer(&_indexBufferView);
 
 	// TODO
-	// 1) Bufferø°¥Ÿ∞° µ•¿Ã≈Õ ºº∆√(µπŸ¿ÃΩ∫∏¶ ≈Î«ÿº≠ ¿€æ˜¿ª «œ¥œ±Ó ¥Á¿Â ¿œæÓ≥™¥¬ ∞≥≥‰, ¡ÔΩ√ µ•¿Ã≈Õ∞° ∫πªÁµ»¥Ÿ.)
-	// 2) Buffer¿« ¡÷º“∏¶ registerø°¥Ÿ∞° ¿¸º€(µŒπ¯¬∞ ¥‹∞Ëø°º± SetGraphicsRootConstantBufferView∏¶ ø‰√ª«“∞«µ• æÍ¥¬ ƒø∏«µÂ ∏ÆΩ∫∆Æ∏¶ ≈Î«ÿº≠ ø‰√ª«—¥Ÿ.
-	// ±◊∑°º≠ µŒπ¯§ä ∫Œ∫–¿∫ ≥™¡ﬂø° πˆ∆€¿« ¡÷º“∏¶ ≥—∞‹¡‡º≠ ∑π¡ˆΩ∫≈Õ∏¶ ∞°∏Æ≈∞∞‘ ∏∏µÁ¥Ÿ.)
-	
+	// 1) BufferÏóêÎã§Í∞Ä Îç∞Ïù¥ÌÑ∞ ÏÑ∏ÌåÖ(ÎîîÎ∞îÏù¥Ïä§Î•º ÌÜµÌï¥ÏÑú ÏûëÏóÖÏùÑ ÌïòÎãàÍπå ÎãπÏû• ÏùºÏñ¥ÎÇòÎäî Í∞úÎÖê, Ï¶âÏãú Îç∞Ïù¥ÌÑ∞Í∞Ä Î≥µÏÇ¨ÎêúÎã§.)
+	// 2) BufferÏùò Ï£ºÏÜåÎ•º registerÏóêÎã§Í∞Ä Ï†ÑÏÜ°(ÎëêÎ≤àÏß∏ Îã®Í≥ÑÏóêÏÑ† SetGraphicsRootConstantBufferViewÎ•º ÏöîÏ≤≠Ìï†Í±¥Îç∞ ÏñòÎäî Ïª§Îß®Îìú Î¶¨Ïä§Ìä∏Î•º ÌÜµÌï¥ÏÑú ÏöîÏ≤≠ÌïúÎã§.
+	// Í∑∏ÎûòÏÑú ÎëêÎ≤à¬ä Î∂ÄÎ∂ÑÏùÄ ÎÇòÏ§ëÏóê Î≤ÑÌçºÏùò Ï£ºÏÜåÎ•º ÎÑòÍ≤®Ï§òÏÑú Î†àÏßÄÏä§ÌÑ∞Î•º Í∞ÄÎ¶¨ÌÇ§Í≤å ÎßåÎì†Îã§.)
+
 	// TODO
-	// 1) Bufferø°¥Ÿ∞° µ•¿Ã≈Õ ºº∆√
-	// 2) TableDescHeapø°¥Ÿ∞° CBV ¿¸¥ﬁ
-	// 3) ∏µŒ ºº∆√¿Ã ≥°≥µ¿∏∏È TableDescHeap ƒøπ‘
+	// 1) BufferÏóêÎã§Í∞Ä Îç∞Ïù¥ÌÑ∞ ÏÑ∏ÌåÖ
+	// 2) TableDescHeapÏóêÎã§Í∞Ä CBV Ï†ÑÎã¨
+	// 3) Î™®Îëê ÏÑ∏ÌåÖÏù¥ ÎÅùÎÇ¨ÏúºÎ©¥ TableDescHeap Ïª§Î∞ã
 
-	// æ∆±Ó∂˚ ±‚¥…¿∫ ∂»∞∞¿∫µ• ∞·±πø°¥¬ ¿Ã¡¶ ªÁøÎ«œ¥¬ πÊπ˝¿Ã ¥ﬁ∂Û¡≥¥Ÿ.
-	// ∑Á∆Æ Ω√±◊¥œ√≥∏¶ º≥∏Ì«œ¥¬ ∫Œ∫–ø°º≠ ±‚¡∏ø°¥¬ ∑Á∆Æ Ω√±◊¥œ√≥∏¶ ¿ÃøÎ«ﬂ¥Ÿ∏È 
-	// ¿Ã¡¶¥¬ ∑Á∆Æ µΩ∫≈©∏≥≈Õ ≈◊¿Ã∫Ì¿ª ¿ÃøÎ«ÿ ∞°¡ˆ∞Ì ∞¸∏Æ∏¶ «œ¥¬ πÊπ˝¿∏∑Œ ºˆ¡§¿ª «ÿ∫√¥Ÿ
-	
-	// ¿Ã∑∏∞‘ πˆ∆€∏¶ «œ≥™∏¶ ªÁøÎ«ÿ ∞°¡ˆ∞Ì π–æÓ ≥÷¥¬ ∞‘ æ∆¥œ∂Û «◊ªÛ πˆ∆€µµ ø©∑Ø ∞≥∏¶ ∏∏µÈæÓ ¡‡æﬂ µ«¥¬ ∞≈∞Ì 
-	// πˆ∆€∏¶ π¶ªÁ«œ¥¬ viewµµ ƒ¡∆Æ∑— πˆ∆€ viewµµ ø©∑Ø ∞≥∏¶ ∏∏µÈæÓ ¡‡æﬂ µ«¥¬ ∞≈∞Ì 
-	// ±◊ ¥Ÿ¿Ωø° ±◊∞≈∏¶ ¡¶√‚«œ±‚ ¿ß«— øÎµµ¿« ¿Ã ≈◊¿Ã∫Ì µΩ∫≈©∏≥≈Õ heapµµ «œ≥™∏∏ ∏∏µÈæÓ ¡÷¥¬ ∞‘ æ∆¥œ∂Û 
-	// ø©∑Ø ∞≥∏¶ ºº∆Æ∏¶ ∏ÓπÈ ∞≥∏¶ ∏∏µÈæÓ ¡‡ ∞°¡ˆ∞Ì «œ≥™æø «œ≥™æø √§øˆº≠ ∞≥∏¶ ¿Ã¡¶ ø√∑¡¡÷∞‘≤˚ 
-	// ¿œ¥‹¿∫ ∏∏µÈæÓ¡ˆ¥¬ ∞Õ±Ó¡ˆ ¿œ¥‹¿∫ æÀ ºˆ∞° ¿÷æ˙¥Ÿ
+	// ÏïÑÍπåÎûë Í∏∞Îä•ÏùÄ ÎòëÍ∞ôÏùÄÎç∞ Í≤∞Íµ≠ÏóêÎäî Ïù¥Ï†ú ÏÇ¨Ïö©ÌïòÎäî Î∞©Î≤ïÏù¥ Îã¨ÎùºÏ°åÎã§.
+	// Î£®Ìä∏ ÏãúÍ∑∏ÎãàÏ≤òÎ•º ÏÑ§Î™ÖÌïòÎäî Î∂ÄÎ∂ÑÏóêÏÑú Í∏∞Ï°¥ÏóêÎäî Î£®Ìä∏ ÏãúÍ∑∏ÎãàÏ≤òÎ•º Ïù¥Ïö©ÌñàÎã§Î©¥ 
+	// Ïù¥Ï†úÎäî Î£®Ìä∏ ÎîîÏä§ÌÅ¨Î¶ΩÌÑ∞ ÌÖåÏù¥Î∏îÏùÑ Ïù¥Ïö©Ìï¥ Í∞ÄÏßÄÍ≥† Í¥ÄÎ¶¨Î•º ÌïòÎäî Î∞©Î≤ïÏúºÎ°ú ÏàòÏ†ïÏùÑ Ìï¥Î¥§Îã§
 
-	// ¡Ô, ¡ÔΩ√ µ«¥¬ ∫Œ∫–∞˙ ≥™¡ﬂø° µ«¥¬ ∫Œ∫–¿ª ¿ﬂ ±∏∫–«ÿæﬂ«—¥Ÿ
+	// Ïù¥Î†áÍ≤å Î≤ÑÌçºÎ•º ÌïòÎÇòÎ•º ÏÇ¨Ïö©Ìï¥ Í∞ÄÏßÄÍ≥† Î∞ÄÏñ¥ ÎÑ£Îäî Í≤å ÏïÑÎãàÎùº Ìï≠ÏÉÅ Î≤ÑÌçºÎèÑ Ïó¨Îü¨ Í∞úÎ•º ÎßåÎì§Ïñ¥ Ï§òÏïº ÎêòÎäî Í±∞Í≥† 
+	// Î≤ÑÌçºÎ•º Î¨òÏÇ¨ÌïòÎäî viewÎèÑ Ïª®Ìä∏Î°§ Î≤ÑÌçº viewÎèÑ Ïó¨Îü¨ Í∞úÎ•º ÎßåÎì§Ïñ¥ Ï§òÏïº ÎêòÎäî Í±∞Í≥† 
+	// Í∑∏ Îã§ÏùåÏóê Í∑∏Í±∞Î•º Ï†úÏ∂úÌïòÍ∏∞ ÏúÑÌïú Ïö©ÎèÑÏùò Ïù¥ ÌÖåÏù¥Î∏î ÎîîÏä§ÌÅ¨Î¶ΩÌÑ∞ heapÎèÑ ÌïòÎÇòÎßå ÎßåÎì§Ïñ¥ Ï£ºÎäî Í≤å ÏïÑÎãàÎùº 
+	// Ïó¨Îü¨ Í∞úÎ•º ÏÑ∏Ìä∏Î•º Î™áÎ∞± Í∞úÎ•º ÎßåÎì§Ïñ¥ Ï§ò Í∞ÄÏßÄÍ≥† ÌïòÎÇòÏî© ÌïòÎÇòÏî© Ï±ÑÏõåÏÑú Í∞úÎ•º Ïù¥Ï†ú Ïò¨Î†§Ï£ºÍ≤åÎÅî 
+	// ÏùºÎã®ÏùÄ ÎßåÎì§Ïñ¥ÏßÄÎäî Í≤ÉÍπåÏßÄ ÏùºÎã®ÏùÄ Ïïå ÏàòÍ∞Ä ÏûàÏóàÎã§
+
+	// Ï¶â, Ï¶âÏãú ÎêòÎäî Î∂ÄÎ∂ÑÍ≥º ÎÇòÏ§ëÏóê ÎêòÎäî Î∂ÄÎ∂ÑÏùÑ Ïûò Íµ¨Î∂ÑÌï¥ÏïºÌïúÎã§
 
 	{
 		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
 		GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
+
+		GEngine->GetTableDescHeap()->SetSRV(_tex->GetCpuHandle(), SRV_REGISTER::t0);
 	}
-	// «œ≥™∏∏ ±◊∏Æ±‚ ¿ß«ÿº≠ ¡÷ºÆ
+	// ÌïòÎÇòÎßå Í∑∏Î¶¨Í∏∞ ÏúÑÌï¥ÏÑú Ï£ºÏÑù
 	/*{
 		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
 		GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b1);
 	}*/
 
+
 	GEngine->GetTableDescHeap()->CommitTable();
-	
-	//CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);
+
 	CMD_LIST->DrawIndexedInstanced(_indexCount, 1, 0, 0, 0);
 }
 
@@ -77,8 +79,8 @@ void Mesh::CreateVertexBuffer(const vector<Vertex>& buffer)
 
 	// Initialize the vertex buffer view.
 	_vertexBufferView.BufferLocation = _vertexBuffer->GetGPUVirtualAddress();
-	_vertexBufferView.StrideInBytes = sizeof(Vertex); // ¡§¡° 1∞≥ ≈©±‚
-	_vertexBufferView.SizeInBytes = bufferSize; // πˆ∆€¿« ≈©±‚	
+	_vertexBufferView.StrideInBytes = sizeof(Vertex); // Ï†ïÏ†ê 1Í∞ú ÌÅ¨Í∏∞
+	_vertexBufferView.SizeInBytes = bufferSize; // Î≤ÑÌçºÏùò ÌÅ¨Í∏∞	
 }
 
 void Mesh::CreateIndexBuffer(const vector<uint32>& buffer)
@@ -104,6 +106,6 @@ void Mesh::CreateIndexBuffer(const vector<uint32>& buffer)
 	_indexBuffer->Unmap(0, nullptr);
 
 	_indexBufferView.BufferLocation = _indexBuffer->GetGPUVirtualAddress();
-	_indexBufferView.Format = DXGI_FORMAT_R32_UINT; // int32∂Ûº≠ ¿Ã∑∏∞‘ æ∏
+	_indexBufferView.Format = DXGI_FORMAT_R32_UINT; // int32ÎùºÏÑú Ïù¥Î†áÍ≤å ÏîÄ
 	_indexBufferView.SizeInBytes = bufferSize;
 }

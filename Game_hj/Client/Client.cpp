@@ -1,16 +1,15 @@
 ﻿// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 #include "pch.h"
-#include "Game.h"
 #include "framework.h"
 #include "Client.h"
-
+#include "Game.h"
 
 #define MAX_LOADSTRING 100
 
+// 전역 변수:
 WindowInfo GWindowInfo;
 
-// 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
@@ -63,15 +62,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             if (msg.message == WM_QUIT)
                 break;
 
-            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-            {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
-
-
+			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
         }
-        // TODO
+
+		// TODO
         game->Update();
         // 참고로 이건 어떤 프로그램이건 어떤 게임이건 다 똑같은 방식으로 되어있다
         // 기본적으로 이렇게 무한 루프를 돌면서 매 팀마다 이런식으로 업데이트를 계속 호출하는
@@ -135,6 +133,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd);
 
    GWindowInfo.hwnd = hWnd;
+
    return TRUE;
 }
 

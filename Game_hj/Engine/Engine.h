@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Device.h"
 #include "CommandQueue.h"
 #include "SwapChain.h"
@@ -7,7 +8,7 @@
 #include "Shader.h"
 #include "ConstantBuffer.h"
 #include "TableDescriptorHeap.h"
-
+#include "Texture.h"
 
 class Engine
 {
@@ -15,6 +16,7 @@ public:
 
 	void Init(const WindowInfo& info);
 	void Render();
+
 public:
 	shared_ptr<Device> GetDevice() { return _device; }
 	shared_ptr<CommandQueue> GetCmdQueue() { return _cmdQueue; }
@@ -22,6 +24,7 @@ public:
 	shared_ptr<RootSignature> GetRootSignature() { return _rootSignature; }
 	shared_ptr<ConstantBuffer> GetCB() { return _cb; }
 	shared_ptr<TableDescriptorHeap> GetTableDescHeap() { return _tableDescHeap; }
+
 public:
 	void RenderBegin();
 	void RenderEnd();
@@ -40,7 +43,6 @@ private:
 	shared_ptr<RootSignature> _rootSignature;
 	shared_ptr<ConstantBuffer> _cb;
 	shared_ptr<TableDescriptorHeap> _tableDescHeap;
-
 };
 
 // Client¿Í Server

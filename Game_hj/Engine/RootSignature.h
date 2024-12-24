@@ -8,15 +8,20 @@
 class RootSignature
 {
 public:
-	void Init(ComPtr<ID3D12Device> device);
+	void Init();
 
 	ComPtr<ID3D12RootSignature>	GetSignature() { return _signature; }
 
 private:
-	ComPtr<ID3D12RootSignature>	_signature;
+	void CreateSamplerDesc();
+	void CreateRootSignature();
 
+private:
+	ComPtr<ID3D12RootSignature>	_signature;
 	// comptr로 되어있는 거의 대부분의 모든 부분들은 GPU한테 우리가 요청을 하는거고
 	// 거기 내부에서 실질적인 객체가 만들어진다고 보면된다
+
+	D3D12_STATIC_SAMPLER_DESC _samplerDesc;
 };
 
 // Root Signature
@@ -25,4 +30,3 @@ private:
 // 그래서 실제로 데이터가 그렇게 들어가는건 아니다
 // 계약서와 비슷한 개념이다. 상수 버퍼의 수가 적으면 일일이 명시해도 상관없지만 버퍼의 수가 많아져서 테이블 형식(다음에 나올 개념 : Table DescriptorHeap)으로 생성된다면 
 // 배열 형식으로 버퍼의 사이즈만큼 지정해주어 명시(서명)해줘야한다.
-
