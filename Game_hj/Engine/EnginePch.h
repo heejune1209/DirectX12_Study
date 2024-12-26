@@ -103,14 +103,28 @@ struct Vertex
 	Vec2 uv;
 };
 
-struct Transform
-{
-	Vec4 offset;
-};
+#define DECLARE_SINGLE(type)		\
+private:							\
+	type() {}						\
+	~type() {}						\
+public:								\
+	static type* GetInstance()		\
+	{								\
+		static type instance;		\
+		return &instance;			\
+	}								\
+// 여러 줄을 정의하고 싶을 땐 한 줄 끝에 역슬래시()를 붙인다.
+
+#define GET_SINGLE(type)	type::GetInstance()
 
 #define DEVICE				GEngine->GetDevice()->GetDevice()
 #define CMD_LIST			GEngine->GetCmdQueue()->GetCmdList()
 #define RESOURCE_CMD_LIST	GEngine->GetCmdQueue()->GetResourceCmdList()
 #define ROOT_SIGNATURE		GEngine->GetRootSignature()->GetSignature()
+#define INPUT				GET_SINGLE(Input)
+#define DELTA_TIME			GET_SINGLE(Timer)->GetDeltaTime()
+
+
+#define CONST_BUFFER(type)	GEngine->GetConstantBuffer(type)
 
 extern unique_ptr<class Engine> GEngine;

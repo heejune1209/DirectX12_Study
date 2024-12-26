@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "Mesh.h"
 #include "Engine.h"
+#include "Material.h"
 
 void Mesh::Init(const vector<Vertex>& vertexBuffer, const vector<uint32>& indexBuffer)
 {
@@ -17,7 +18,7 @@ void Mesh::Render()
 	// TODO
 	// 1) Buffer에다가 데이터 세팅(디바이스를 통해서 작업을 하니까 당장 일어나는 개념, 즉시 데이터가 복사된다.)
 	// 2) Buffer의 주소를 register에다가 전송(두번째 단계에선 SetGraphicsRootConstantBufferView를 요청할건데 얘는 커맨드 리스트를 통해서 요청한다.
-	// 그래서 두번 부분은 나중에 버퍼의 주소를 넘겨줘서 레지스터를 가리키게 만든다.)
+	// 그래서 두번 부분은 나중에 버퍼의 주소를 넘겨줘서 레지스터를 가리키게 만든다.
 
 	// TODO
 	// 1) Buffer에다가 데이터 세팅
@@ -36,22 +37,14 @@ void Mesh::Render()
 
 	// 즉, 즉시 되는 부분과 나중에 되는 부분을 잘 구분해야한다
 
-	{
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
-		GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
+	GEngine->GetTableDescHeap()->CommitTable();
 
-		GEngine->GetTableDescHeap()->SetSRV(_tex->GetCpuHandle(), SRV_REGISTER::t0);
-	}
+	CMD_LIST->DrawIndexedInstanced(_indexCount, 1, 0, 0, 0);
 	// 하나만 그리기 위해서 주석
 	/*{
 		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
 		GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b1);
 	}*/
-
-
-	GEngine->GetTableDescHeap()->CommitTable();
-
-	CMD_LIST->DrawIndexedInstanced(_indexCount, 1, 0, 0, 0);
 }
 
 void Mesh::CreateVertexBuffer(const vector<Vertex>& buffer)
