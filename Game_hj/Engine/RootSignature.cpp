@@ -12,12 +12,13 @@ void RootSignature::CreateRootSignature()
 {
 	CD3DX12_DESCRIPTOR_RANGE ranges[] =
 	{
-		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, CBV_REGISTER_COUNT, 0), // b0~b4
+		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, CBV_REGISTER_COUNT, -1, 1 ), // b0~b4
 		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, SRV_REGISTER_COUNT, 0), // t0~t4
 	};
 
-	CD3DX12_ROOT_PARAMETER param[1];
-	param[0].InitAsDescriptorTable(_countof(ranges), ranges);
+	CD3DX12_ROOT_PARAMETER param[2];
+	param[0].InitAsConstantBufferView(static_cast<uint32>(CBV_REGISTER::b0)); // b0
+	param[1].InitAsDescriptorTable(_countof(ranges), ranges);
 
 	// BufferView 라는 것은 약간 C++에서 포인터와 비슷하게 다른 애를 참조하는 그런 개념
 

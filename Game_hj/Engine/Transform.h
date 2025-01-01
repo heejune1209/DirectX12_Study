@@ -22,7 +22,7 @@ public:
 	// 자신의 부모 얘기가 아니라 그 물체의 로컬 스페이스에서 월드로 뛰어넘기위한 행렬을 얘기하고있다
 	const Matrix& GetLocalToWorldMatrix() { return _matWorld; }
 	// _matWorld이 월드로 가기위한 변환행렬이다
-	const Vec3& GetWorldPosition() { return _matWorld.Translation(); }
+	Vec3 GetWorldPosition() { return _matWorld.Translation(); }
 	// _matWorld.Translation() -> (Vector3(_41, _42, _43))는 월드좌표이다
 
 	Vec3 GetRight() { return _matWorld.Right(); }

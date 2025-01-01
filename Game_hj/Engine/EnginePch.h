@@ -46,10 +46,10 @@ using namespace Microsoft::WRL;
 #endif
 
 // 각종 typedef
-using int8		= __int8;
-using int16		= __int16;
-using int32		= __int32;
-using int64		= __int64;
+using int8		= __int8; // 8비트(1바이트)크기의 정수형
+using int16		= __int16; // 16비트(2바이트)크기의 정수형
+using int32		= __int32; // 32비트(4바이트)크기의 정수형
+using int64		= __int64; // 64비트(8바이트)크기의 정수형
 using uint8		= unsigned __int8;
 using uint16	= unsigned __int16;
 using uint32	= unsigned __int32;
@@ -138,6 +138,10 @@ public:								\
 
 struct TransformParams
 {
+	Matrix matWorld;
+	Matrix matView;
+	Matrix matProjection;
+	Matrix matWV;
 	Matrix matWVP;
 };
 
